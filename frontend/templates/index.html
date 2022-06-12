@@ -1,36 +1,104 @@
 {% load static %}
 <html lang="ru">
 <head>
-    <title>Лучший кликер на планете</title>
+    <title>Хацкер кликер</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+    <style>
+        body {
+        background-image: url(../static/images/background.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        color: #ffffff;
+        }
+    </style>
 </head>
 <body>
     <main class="app">
         <nav class="nav">
-            Привет, {{ user.username }}
-            <a href="{% url 'logout' %}">Выйти</a>
+            <h3>Добро пожаловать, {{ user.username }}
+            <a href="{% url 'logout' %}">Выйти</a></h3>
+
+        <h1 style="text-align: center;">Достижения</h1>
+            <h3>Мощь клика</h3>
+         <div>
+             {% if core.click_power > 1 %}
+                <button class="unlock_achievement" > <img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Ламер<p>Одно улучшение клика</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+
+             {% if core.click_power >= 20 %}
+                <button class="unlock_achievement"><img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Школьник<p>Мощь клика 20</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+
+             {% if core.click_power >= 50 %}
+                <button class="unlock_achievement"> <img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Что он творит?<p>Мощь клика 50</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+
+             {% if core.click_power >= 75 %}
+                <button class="unlock_achievement"> <img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Ультра-хацкер<p>Мощь клика 75</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+         </div>
+        <h3>Мощь ботов</h3>
+        <div>
+             {% if core.auto_click_power > 1 %}
+                <button class="unlock_achievement" > <img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Первый бот!<p>Одно улучшение ботов</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+
+             {% if core.auto_click_power >= 20 %}
+                <button class="unlock_achievement"><img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Взломал одноклассников<p>Мощь ботов 20</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+
+             {% if core.auto_click_power >= 50 %}
+                <button class="unlock_achievement"> <img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Готов дудосить<p>Мощь ботов 50</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+
+             {% if core.auto_click_power >= 75 %}
+                <button class="unlock_achievement"> <img class="achievement" src= "{% static 'images/quality.png' %}" ><p>Захватили комментарии<p>Мощь ботов 75</button>
+             {% else %}
+                <button class="lock_achievement" > <img class="achievement" src= "{% static 'images/lock.png' %}" ><p>?</button>
+             {% endif %}
+         </div>
         </nav>
 
         <div class="container">
-            <div id='coins'>{{core.coins}}</div>
-            <button  id="kakashi" onclick="call_click()">Нажми меня</button>
-            <p class="click_power">
-                Невероятная мощь клика: <span id="click_power">{{ core.click_power }}</span>
-            </p>
-            <p>
-                Самостоятельная дружина кликеров. Чел: <span id="auto_click_power">{{ core.auto_click_power }}</span>
-            </p>
+            <div class="game_Info">
+                <div class="info_Text" id='coins'>{{core.coins}}</div>
+                <p class="info_Text">Мощь клика: <span id="click_power">{{ core.click_power }}</span></p>
+                <p class="info_Text">Мощь ботов: <span id="auto_click_power">{{ core.auto_click_power }}</span></p>
+            </div>
         </div>
 
+        <img class='img' src= "{% static 'images/abobman2.png' %}" id="kakashi" onclick="call_click()">
+
         <aside class="boosts" id="boosts">
-            <h3>Бусты</h3>
+            <h2 style="text-align: center;">Бусты</h2>
             <div class="boosts-holder" id="boosts-holder">
                 {% for boost in boosts %}
                     <button class="boost_{{boost.type}}" id="boost_{{boost.id}}" onclick="buy_boost({{boost.id}})">
-                        <p>lvl: <span id="boost_level">{{boost.level}}</span></p>
-                        <p>+<span id="boost_power">{{boost.power}}</span></p>
-                        <p><span id="boost_price">{{boost.price}}</span></p>
+                        <p class="boosts_Text">Уровень: <span id="boost_level">{{boost.level}}</span></p>
+
+                        {% if boost.type == 0 %}
+                            <p class="boosts_Text">Мощь клика: +<span id="boost_power">{{boost.power}}</span></p>
+                        {% else %}
+                            <p class="boosts_Text">Мощь ботов: +<span id="boost_power">{{boost.power}}</span></p>
+                        {% endif %}
+
+                        <p class="boosts_Text">Цена: <span id="boost_price">{{boost.price}}</span></p>
                     </button>
                 {% endfor %}
             </div>

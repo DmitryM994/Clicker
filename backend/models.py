@@ -56,7 +56,7 @@ class Boost(models.Model):
     type = models.PositiveSmallIntegerField(default=0, choices=BOOST_TYPE_CHOICES)  # Поле с типом буста. PositiveSmallInteger не позволяет значению быть меньше нуля.
 
     def levelup(self, current_coins):
-        if self.core.coins < self.price:
+        if current_coins < self.price:
             return False
 
         self.core.coins -= self.price

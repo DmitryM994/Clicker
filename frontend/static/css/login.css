@@ -1,0 +1,57 @@
+body {
+    background-image: url(../images/background.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color:white;
+    font-size: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 250px;
+}
+
+a {
+    border-color: #000000;
+    text-decoration: none;
+    text-align: center;
+    background-color: #efebeb;
+}
+
+form {
+    text-align: center;
+}
+
+input,a {
+    border:solid 2px black;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    font-size: 17px;
+
+}
+
+input[type='text'], input[type='password'] {
+    color: #188302;
+    width:400px;
+    padding: 20px 10px 20px 10px;
+    color: #188302;
+}
+
+input[type='text']:hover, input[type='password']:hover {
+    border-color:#188302;
+}
+
+input[type='submit'], a {
+    padding: 20px 10px 20px 10px;
+}
+
+input[type='submit']:hover, a:hover {
+    border-color: #188302;
+    color:#188302;
+}
+
+input[type='submit']:active, a:active {
+    background-color: #188302;
+}
+
